@@ -34,7 +34,7 @@ runs:
       
   - name: Check if ECR repo exists
     run: |
-      aws -h
+      aws --version
       
   - name: Login to ECR
     id: login-ecr
