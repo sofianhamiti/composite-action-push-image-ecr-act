@@ -31,7 +31,11 @@ runs:
       aws-region: ${{inputs.aws_region}}
       role-skip-session-tagging: true
       role-duration-seconds: 1200
-
+      
+  - name: Check if ECR repo exists
+    run: |
+      aws -h
+      
   - name: Login to ECR
     id: login-ecr
     uses: aws-actions/amazon-ecr-login@v1
@@ -42,15 +46,7 @@ runs:
       REGISTRY: ${{steps.login-ecr.outputs.registry}}
       REPOSITORY: ${{inputs.repository_name}}
       IMAGE_TAG: ${{inputs.image_tag}}
-    run: |
-      # install AWS CLI
-      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-      unzip awscliv2.zip
-      sudo ./aws/install  
-     
-      # create ECR repo is doesn't exist
-      aws -h
-      
+    run: |     
       # build and push image to ECR
       cd ${{inputs.folder}}
       docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
