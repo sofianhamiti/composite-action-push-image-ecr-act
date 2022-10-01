@@ -49,11 +49,7 @@ runs:
       sudo ./aws/install  
      
       # create ECR repo is doesn't exist
-      aws ecr describe-repositories --repository-names "$REPOSITORY" > /dev/null 2>&1
-      if [[ $? -ne 0 ]]
-      then
-        aws ecr create-repository --repository-name "$REPOSITORY" > /dev/null
-      fi
+      aws -h
       
       # build and push image to ECR
       cd ${{inputs.folder}}
