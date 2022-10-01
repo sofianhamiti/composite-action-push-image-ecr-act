@@ -44,11 +44,11 @@ runs:
       IMAGE_TAG: ${{inputs.image_tag}}
     run: |
       # If the repository doesn't exist in ECR, create it.
-      aws ecr describe-repositories --repository-names "$REPOSITORY" > /dev/null 2>&1
-      if [[ $? -ne 0 ]]
-      then
-          aws ecr create-repository --repository-name "$REPOSITORY" > /dev/null
-      fi
+      # aws ecr describe-repositories --repository-names "$REPOSITORY" > /dev/null 2>&1
+      # if [[ $? -ne 0 ]]
+      # then
+      #    aws ecr create-repository --repository-name "$REPOSITORY" > /dev/null
+      # fi
       
       cd ${{inputs.folder}}
       docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
